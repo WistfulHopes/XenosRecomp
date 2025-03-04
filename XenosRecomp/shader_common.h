@@ -45,10 +45,16 @@ uint g_SpecConstants();
 
 #endif
 
-Texture2D<float4> g_Texture2DDescriptorHeap[] : register(t0, space0);
-Texture3D<float4> g_Texture3DDescriptorHeap[] : register(t0, space1);
-TextureCube<float4> g_TextureCubeDescriptorHeap[] : register(t0, space2);
-SamplerState g_SamplerDescriptorHeap[] : register(s0, space3);
+Texture2D<float4> g_Texture1DDescriptorHeap[] : register(t0, space0);
+Texture2D<float4> g_Texture2DDescriptorHeap[] : register(t0, space1);
+Texture3D<float4> g_Texture3DDescriptorHeap[] : register(t0, space2);
+TextureCube<float4> g_TextureCubeDescriptorHeap[] : register(t0, space3);
+SamplerState g_SamplerDescriptorHeap[] : register(s0, space4);
+
+float4 tfetch1D(uint resourceDescriptorIndex, uint samplerDescriptorIndex, float texCoord)
+{
+    return g_Texture1DDescriptorHeap[resourceDescriptorIndex].Sample(g_SamplerDescriptorHeap[samplerDescriptorIndex], texCoord);
+}
 
 uint2 getTexture2DDimensions(Texture2D<float4> texture)
 {
